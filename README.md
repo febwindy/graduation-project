@@ -1,2 +1,2 @@
-# graduation-roject
-graduation-roject
+# graduation-project
+graduation-project
