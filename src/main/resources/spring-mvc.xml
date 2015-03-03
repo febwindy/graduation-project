@@ -55,7 +55,6 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
-    <!--<mvc:resources mapping="/favicon.ico" location="/resources/images/favicon.ico" order="0"/>-->
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <!--<bean id="multipartResolver"-->
