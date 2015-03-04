@@ -1,0 +1,38 @@
+.layout-north {
+    height:55px;
+    background-color: #5D6C8A;
+}
+
+.layout-north h2 {
+    color: #fff;
+    padding: 0px 20px;
+}
+
+.layout-center {
+    background-color: #fafafa;
+}
+
+.layout-center > .panel-box {
+    margin: 10% auto;
+}
+
+.layout-center .panel-box-title {
+    padding:30px 60px !important;
+}
+
+.layout-center > .panel-box, .layout-center .panel-box-title {
+    width: 400px;
+}
+
+.layout-center td:first-child, .panel-footer-bottom {
+    text-align: right;
+}
+
+.layout-center .btn-group {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.layout-north, .layout-center {
+    border: none;
+}

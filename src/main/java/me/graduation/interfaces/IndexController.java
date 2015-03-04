@@ -13,7 +13,7 @@ public class IndexController {
 
     @RequestMapping
     public ModelAndView index() throws Exception {
-        return new ModelAndView("/index");
+        return new ModelAndView("/login");
     }
 
 }
