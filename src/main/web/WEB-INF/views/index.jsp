@@ -3,11 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/easyui/themes/bootstrap/easyui.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/easyui/icon.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/easyui/color.css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.easyui.min.js" type="text/javascript"></script>
+    <jsp:include page="commons/inc_css.jsp"/>
+    <jsp:include page="commons/inc_js.jsp"/>
     <title>首页</title>
 </head>
 <body class="easyui-layout">

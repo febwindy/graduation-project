@@ -1,7 +1,9 @@
 package me.graduation.interfaces;
 
+import me.graduation.domain.model.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
