@@ -39,7 +39,7 @@
     </div>
     <script type="text/javascript">
         $("#loginForm").form({
-            url : "${pageContext.request.contextPath}/auth/login",
+            url : "${pageContext.request.contextPath}/j_spring_security_check",
             onSubmit:function(){
                 return $(this).form('enableValidation').form('validate');
             },

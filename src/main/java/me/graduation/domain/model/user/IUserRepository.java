@@ -8,4 +8,7 @@ import java.io.Serializable;
  * Created by _liwenhe on 2015/3/4.
  */
 public interface IUserRepository<T, TD extends Serializable> extends IHibernateGenericRepository<T, TD> {
+
+    T loadByUsername(String username);
+
 }
