@@ -1,12 +1,10 @@
 package me.graduation.interfaces.auth.web;
 
-import me.graduation.interfaces.share.web.JsonMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by _liwenhe on 2015/3/4.
@@ -16,23 +14,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthorizationController {
 
     @RequestMapping(value = "/login")
-    public ModelAndView login(RedirectAttributes redirectAttributes) throws Exception {
-
-        JsonMessage message = new JsonMessage();
-        message.setStatus("1");
-        message.setMessage("登录成功");
-
-        redirectAttributes.addFlashAttribute("message", message);
+    public ModelAndView login() throws Exception {
         return new ModelAndView("redirect:/index");
     }
 
     @RequestMapping(value = "/failed")
-    @ResponseBody
-    public JsonMessage failed(@ModelAttribute("message")JsonMessage message) throws Exception {
-        message.setStatus("0");
-        message.setMessage("登录失败");
+    public ModelAndView failed() throws Exception {
+        return new ModelAndView("redirect:/");
+    }
 
-        return message;
+    @RequestMapping(value = "/denied")
+    public ModelAndView denied() throws Exception {
+        return new ModelAndView("redirect:/");
     }
 
 }

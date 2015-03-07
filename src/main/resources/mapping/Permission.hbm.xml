@@ -8,9 +8,8 @@
         <id name="id" column="id" length="32">
              <generator class="uuid"/>
         </id>
-        <property name="name" column="name" length="32"/>
-        <property name="path" column="path" length="50"/>
-        <property name="describtion" column="describtion" length="255"/>
+        <property name="resource" column="resource" length="50"/>
+        <property name="description" column="describtion" length="255"/>
 
         <set name="roles" table="gr_role_permission">
             <key column="permission_id"/>

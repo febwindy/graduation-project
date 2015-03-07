@@ -7,52 +7,73 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http use-expressions="true" access-denied-page="/login.jsp"
-                   entry-point-ref="authenticationProcessingFilterEntryPoint">
-        <security:logout/>
-        <security:session-management invalid-session-url="/">
-            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
-        </security:session-management>
+<security:http auto-config="false" use-expressions="true" access-denied-page="/denied"
+                   entry-point-ref="entryPoint">
         <!-- 对登录页面，所有的用户都可以访问 -->
         <security:intercept-url pattern="/resources/**" access="permitAll"/>
         <security:intercept-url pattern="/"  access="permitAll" />
-        <security:intercept-url pattern="/index" access="permitAll"/>
         <!-- 自定义表单过滤 -->
-        <security:custom-filter ref="loginFormFilter" position="FORM_LOGIN_FILTER"/>
-        <!-- 配置登录页面为login.jsp ，登录成功默认跳转到index.jsp，登录失败返回login.jsp并携带参数error=true -->
-        <!--<security:form-login login-page="/login.jsp" default-target-url="/index.jsp" authentication-failure-url="/login.jsp?error=true" />-->
+        <security:custom-filter ref="formLoginFilter" position="FORM_LOGIN_FILTER"/>
+        <security:custom-filter ref="CustomFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+        <!-- 登出 -->
+        <security:logout invalidate-session="true" logout-success-url="/" logout-url="/logout"/>
+        <!-- session过期后操作 -->
+        <security:session-management invalid-session-url="/">
+            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        </security:session-management>
     </security:http>
 
+    <!-- 认证管理器 -->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref="userDetailsService">
-            <!--<security:password-encoder ref="passwordEncoder"/>-->
+            <security:password-encoder ref="passwordEncoder">
+                <security:salt-source user-property="salt"/>
+            </security:password-encoder>
         </security:authentication-provider>
     </security:authentication-manager>
 
     <!-- 未登录时的切入点 -->
-    <bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-        <property name="loginFormUrl" value="/login.jsp"></property>
+    <bean id="entryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/" />
     </bean>
 
     <!-- 加密方式 -->
-    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+        <property name="encodeHashAsBase64" value="false"/>
+    </bean>
 
+    <!-- 自定义userDetailsService -->
     <bean id="userDetailsService" class="me.graduation.application.UserDetailsServiceImpl"/>
 
-    <bean id="loginFormFilter" class="me.graduation.application.LoginUsernamePasswordAuthenticationFilter">
+    <!-- 自定义表单验证 -->
+    <bean id="formLoginFilter" class="me.graduation.application.LoginUsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="usernameParameter" value="username"/>
         <property name="passwordParameter" value="password"/>
-        <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
-        <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+        <property name="filterProcessesUrl" value="/login_check"/>
+        <property name="authenticationSuccessHandler" ref="successHandler"/>
+        <property name="authenticationFailureHandler" ref="failureHandler"/>
     </bean>
 
-    <bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+    <!-- 表单验证成功跳转 -->
+    <bean id="successHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <property name="alwaysUseDefaultTargetUrl" value="true"/>
         <property name="defaultTargetUrl" value="/auth/login"/>
     </bean>
 
-    <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+    <!-- 表单验证失败跳转 -->
+    <bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
         <property name="defaultFailureUrl" value="/auth/failed"/>
     </bean>
+
+    <bean id="CustomFilterSecurityInterceptor" class="me.graduation.application.CustomFilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="securityMetadataSource" ref="securityMetadataSource"/>
+    </bean>
+
+    <bean id="accessDecisionManager" class="me.graduation.application.CustomAccessDecisionManager"/>
+    <bean id="securityMetadataSource" class="me.graduation.application.CustomInvocationSecurityMetadataSource"
+          init-method="loadResourceDefine"/>
 
 </beans>

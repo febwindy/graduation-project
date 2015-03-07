@@ -11,11 +11,10 @@ public class User {
     private String id;
     private String username;
     private String password;
-    private Byte sex;
-    private String qq;
+    private String salt;
+    private Boolean sex;
     private String email;
-    private String telphone;
-    private String idCard;
+    private String telephone;
     private String remark;
     private Set<Role> roles;
 
@@ -43,20 +42,20 @@ public class User {
         this.password = password;
     }
 
-    public Byte getSex() {
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Boolean getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(Boolean sex) {
         this.sex = sex;
-    }
-
-    public String getQq() {
-        return qq;
-    }
-
-    public void setQq(String qq) {
-        this.qq = qq;
     }
 
     public String getEmail() {
@@ -67,20 +66,12 @@ public class User {
         this.email = email;
     }
 
-    public String getTelphone() {
-        return telphone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTelphone(String telphone) {
-        this.telphone = telphone;
-    }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getRemark() {
@@ -102,18 +93,18 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
 
         User user = (User) o;
 
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (idCard != null ? !idCard.equals(user.idCard) : user.idCard != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (qq != null ? !qq.equals(user.qq) : user.qq != null) return false;
         if (remark != null ? !remark.equals(user.remark) : user.remark != null) return false;
+        if (roles != null ? !roles.equals(user.roles) : user.roles != null) return false;
+        if (salt != null ? !salt.equals(user.salt) : user.salt != null) return false;
         if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
-        if (telphone != null ? !telphone.equals(user.telphone) : user.telphone != null) return false;
+        if (telephone != null ? !telephone.equals(user.telephone) : user.telephone != null) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
 
         return true;
@@ -124,12 +115,12 @@ public class User {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (salt != null ? salt.hashCode() : 0);
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
-        result = 31 * result + (qq != null ? qq.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (telphone != null ? telphone.hashCode() : 0);
-        result = 31 * result + (idCard != null ? idCard.hashCode() : 0);
+        result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
     }
 }

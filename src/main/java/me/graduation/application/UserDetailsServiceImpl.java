@@ -40,13 +40,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             gaRoles.add(new SimpleGrantedAuthority(iterator.next().getRole()));
         }
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+        SaltUser saltUser = new SaltUser(
                 user.getUsername(),
                 user.getPassword(),
-                gaRoles
+                gaRoles,
+                user.getSalt()
         );
 
-        return userDetails;
+        return saltUser;
     }
 
 }

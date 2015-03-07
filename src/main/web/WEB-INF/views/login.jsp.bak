@@ -47,6 +47,8 @@
                 var data = $.parseJSON(result);
                 if (0 == data.status) {
                     alert(data.message);
+                } else {
+                    window.location.href = "${pageContext.request.contextPath}/index";
                 }
             }
         });

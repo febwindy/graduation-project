@@ -1,106 +1,180 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>
     <jsp:include page="commons/inc_css.jsp"/>
     <jsp:include page="commons/inc_js.jsp"/>
-    <title>首页</title>
 </head>
-<body class="easyui-layout">
-<div data-options="region:'north'" style="height:50px; background-color: #EEE;">
-    <%--<div style="float: left; line-height: 45px; padding-left: 50px;">流动党员管理系统</div>--%>
-    <%--<div style="float: right; line-height: 45px; padding-right: 50px;">--%>
-    <%--<span>欢迎</span>李文禾--%>
-    <%--</div>--%>
-    <div class="easyui-panel" style="padding:9px; text-align: right; background-color: #f9f9f9;">
-        <div style="float: left; padding: 5px;">
-            <span>流动党员管理系统</span>
-        </div>
-        <div style="float:right; background-color: #f9f9f9;">
-            <a href="#" class="easyui-linkbutton" data-options="plain:true">Home</a>
-            <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">Edit</a>
-            <a href="#" class="easyui-menubutton" data-options="menu:'#mm2'">Help</a>
-            <a href="#" class="easyui-menubutton" data-options="menu:'#mm3'">About</a>
-        </div>
-    </div>
-    <div id="mm1" style="width:150px;">
-        <div data-options="iconCls:'icon-undo'">Undo</div>
-        <div data-options="iconCls:'icon-redo'">Redo</div>
-        <div class="menu-sep"></div>
-        <div>Cut</div>
-        <div>Copy</div>
-        <div>Paste</div>
-        <div class="menu-sep"></div>
-        <div>
-            <span>Toolbar</span>
+<body>
+<jsp:include page="layout/nav.jsp"/>
+<div class="container-fluid">
+    <div class="row">
+        <jsp:include page="layout/menu.jsp"/>
 
-            <div>
-                <div>Address</div>
-                <div>Link</div>
-                <div>Navigation Toolbar</div>
-                <div>Bookmark Toolbar</div>
-                <div class="menu-sep"></div>
-                <div>New Toolbar...</div>
-            </div>
-        </div>
-        <div data-options="iconCls:'icon-remove'">Delete</div>
-        <div>Select All</div>
-    </div>
-    <div id="mm2" style="width:100px;">
-        <div>Help</div>
-        <div>Update</div>
-        <div>About</div>
-    </div>
-    <div id="mm3" class="menu-content" style="background:#f0f0f0;padding:10px;text-align:left">
-        <img src="http://www.jeasyui.com/images/logo1.png" style="width:150px;height:50px">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Dashboard</h1>
 
-        <p style="font-size:14px;color:#444;">Try jQuery EasyUI to build your modern, interactive, javascript
-            applications.</p>
-    </div>
-</div>
-<div data-options="region:'west',split:true" title="功能菜单" style="width:20%;">
-    <div class="easyui-accordion" data-options="fit:true,border:false">
-        <div title="流动党员管理" style="padding:10px;">
-            content1
-        </div>
-        <%--<div title="用户管理" data-options="selected:true" style="padding:10px;">--%>
-        <div title="用户管理" style="padding:10px;">
-            content2
-        </div>
-        <div title="系统管理" style="padding:10px">
-            content3
-        </div>
-    </div>
-</div>
-<div data-options="region:'center',title:'内容'" style="width: 80%">
-    <div class="easyui-tabs" style="width:100%;height:250px;">
-        <div title="主页" style="padding:10px">
-            <p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
-            <ul>
-                <li>easyui is a collection of user-interface plugin based on jQuery.</li>
-                <li>easyui provides essential functionality for building modem, interactive, javascript applications.
-                </li>
-                <li>using easyui you don't need to write many javascript code, you usually defines user-interface by
-                    writing some HTML markup.
-                </li>
-                <li>complete framework for HTML5 web page.</li>
-                <li>easyui save your time and scales while developing your products.</li>
-                <li>easyui is very easy but powerful.</li>
-            </ul>
-        </div>
-        <div title="关于我们" style="padding:10px">
-            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
-        </div>
-        <div title="帮助" data-options="closable:true">
-            <div class="easyui-panel" title="Footer Content." style="width:100%; height: 100%;"
-                 data-options="footer:'#ft'">
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjxnPjx0ZXh0IHg9Ijc1LjUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6I0ZGRkZGRjtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
+                         data-holder-rendered="true">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM5REJBQyIvPjxnPjx0ZXh0IHg9Ijc1LjUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6IzFFMjkyQztmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
+                         data-holder-rendered="true">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjxnPjx0ZXh0IHg9Ijc1LjUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6I0ZGRkZGRjtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
+                         data-holder-rendered="true">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM5REJBQyIvPjxnPjx0ZXh0IHg9Ijc1LjUiIHk9IjEwMCIgc3R5bGU9ImZpbGw6IzFFMjkyQztmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIwMHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
+                         data-holder-rendered="true">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
             </div>
-            <div id="ft" style="padding:5px;">
-                Footer Content.
+
+            <h2 class="sub-header">Section title</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
+                    </tr>
+                    <tr>
+                        <td>1,002</td>
+                        <td>amet</td>
+                        <td>consectetur</td>
+                        <td>adipiscing</td>
+                        <td>elit</td>
+                    </tr>
+                    <tr>
+                        <td>1,003</td>
+                        <td>Integer</td>
+                        <td>nec</td>
+                        <td>odio</td>
+                        <td>Praesent</td>
+                    </tr>
+                    <tr>
+                        <td>1,003</td>
+                        <td>libero</td>
+                        <td>Sed</td>
+                        <td>cursus</td>
+                        <td>ante</td>
+                    </tr>
+                    <tr>
+                        <td>1,004</td>
+                        <td>dapibus</td>
+                        <td>diam</td>
+                        <td>Sed</td>
+                        <td>nisi</td>
+                    </tr>
+                    <tr>
+                        <td>1,005</td>
+                        <td>Nulla</td>
+                        <td>quis</td>
+                        <td>sem</td>
+                        <td>at</td>
+                    </tr>
+                    <tr>
+                        <td>1,006</td>
+                        <td>nibh</td>
+                        <td>elementum</td>
+                        <td>imperdiet</td>
+                        <td>Duis</td>
+                    </tr>
+                    <tr>
+                        <td>1,007</td>
+                        <td>sagittis</td>
+                        <td>ipsum</td>
+                        <td>Praesent</td>
+                        <td>mauris</td>
+                    </tr>
+                    <tr>
+                        <td>1,008</td>
+                        <td>Fusce</td>
+                        <td>nec</td>
+                        <td>tellus</td>
+                        <td>sed</td>
+                    </tr>
+                    <tr>
+                        <td>1,009</td>
+                        <td>augue</td>
+                        <td>semper</td>
+                        <td>porta</td>
+                        <td>Mauris</td>
+                    </tr>
+                    <tr>
+                        <td>1,010</td>
+                        <td>massa</td>
+                        <td>Vestibulum</td>
+                        <td>lacinia</td>
+                        <td>arcu</td>
+                    </tr>
+                    <tr>
+                        <td>1,011</td>
+                        <td>eget</td>
+                        <td>nulla</td>
+                        <td>Class</td>
+                        <td>aptent</td>
+                    </tr>
+                    <tr>
+                        <td>1,012</td>
+                        <td>taciti</td>
+                        <td>sociosqu</td>
+                        <td>ad</td>
+                        <td>litora</td>
+                    </tr>
+                    <tr>
+                        <td>1,013</td>
+                        <td>torquent</td>
+                        <td>per</td>
+                        <td>conubia</td>
+                        <td>nostra</td>
+                    </tr>
+                    <tr>
+                        <td>1,014</td>
+                        <td>per</td>
+                        <td>inceptos</td>
+                        <td>himenaeos</td>
+                        <td>Curabitur</td>
+                    </tr>
+                    <tr>
+                        <td>1,015</td>
+                        <td>sodales</td>
+                        <td>ligula</td>
+                        <td>in</td>
+                        <td>libero</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
