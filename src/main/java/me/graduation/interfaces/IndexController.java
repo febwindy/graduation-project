@@ -52,7 +52,6 @@ public class IndexController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView signUp(@Valid @ModelAttribute("user")CreateUserCommand command, BindingResult bindingResult, Locale locale) throws Exception {
 
-        //TODO 完善注册
         if (!command.getPassword().equals(command.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", "CreateUserCommand.confirmPasswordAndPassword.NotEquals");
         }

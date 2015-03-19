@@ -2,3 +2,4 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.2-dist/css/bootstrap.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dashboard.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/nav.css"/>

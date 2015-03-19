@@ -1,6 +1,10 @@
 package me.graduation.interfaces.user.web.command;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * Created by _liwenhe on 2015/3/7.
@@ -8,18 +12,32 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CreateUserCommand {
 
     @NotEmpty(message = "{CreateUserCommand.username.NotEmpty}")
+    @Length(min = 4, message = "{CreateUserCommand.username.Length}")
     private String username;
 
     @NotEmpty(message = "{CreateUserCommand.password.NotEmpty}")
+    @Length(min = 8, message = "{CreateUserCommand.password.Length}")
     private String password;
 
     @NotEmpty(message = "{CreateUserCommand.confirmPassword.NotEmpty}")
     private String confirmPassword;
 
     private String salt;
-    private Boolean sex;
+
+    @NotNull(message = "{CreateUserCommand.sex.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.sex.NotEmpty}")
+    @Pattern(regexp = "[0|1]", message = "{CreateUserCommand.sex.Pattern}")
+    private String sex;
+
+    @NotNull(message = "{CreateUserCommand.email.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.email.NotEmpty}")
+    @Pattern(regexp = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", message = "{CreateUserCommand.email.Pattern}")
     private String email;
+
+    @NotNull(message = "{CreateUserCommand.telephone.NotNull}")
+    @Pattern(regexp = "1[3|5|7|8|][0-9]{9}", message = "{CreateUserCommand.telephone.Pattern}")
     private String telephone;
+
     private String remark;
 
     public String getUsername() {
@@ -54,11 +72,11 @@ public class CreateUserCommand {
         this.salt = salt;
     }
 
-    public Boolean getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

@@ -34,12 +34,18 @@ public class UserService implements IUserService{
 
         String salt = UUID.randomUUID().toString().replaceAll("-", "");
         String pwd = md5.encodePassword(command.getConfirmPassword(), salt);
+        Boolean sex;
+        if ("0".equals(command.getSex())) {
+            sex = false;
+        } else {
+            sex = true;
+        }
 
         User user = new User();
         user.setUsername(command.getUsername());
         user.setPassword(pwd);
         user.setEmail(command.getEmail());
-        user.setSex(command.getSex());
+        user.setSex(sex);
         user.setTelephone(command.getTelephone());
         user.setSalt(salt);
         user.setRoles(null);

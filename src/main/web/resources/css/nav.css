@@ -1,0 +1,21 @@
+.navbar-red-background {
+    background-color: #cb1c1d;
+}
+
+.navbar-red-background a {
+    color: #ffffff !important;
+}
+
+.navbar-red-background .navbar-brand:hover {
+    /*font-weight: bold;*/
+    color: #ffff00 !important;
+}
+
+.navbar-red-background .navbar-brand > img {
+    display: inline !important;
+    margin-top: -5px;
+}
+
+.navbar-red-background .navbar-nav > li > a:hover {
+    text-decoration: underline !important;
+}
