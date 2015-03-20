@@ -19,3 +19,22 @@
 .navbar-red-background .navbar-nav > li > a:hover {
     text-decoration: underline !important;
 }
+
+.navbar-red-background .navbar-nav > .dropdown > a:hover {
+    text-decoration: none !important;
+    background-color: #BE4C4C !important;
+}
+
+.navbar-red-background .navbar-nav > li > ul > li > a {
+    color: #000000 !important;
+}
+
+.navbar-red-background .navbar-nav > .open > a:hover {
+    background-color: #BE4C4C !important;
+}
+.navbar-red-background .navbar-nav > .open > a:focus {
+    background-color: #BE4C4C !important;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .active > a {
+    background-image: none;
+}
