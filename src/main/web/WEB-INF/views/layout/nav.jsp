@@ -14,13 +14,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">关于我们</a>
-                </li>
-                <li>
-                    <a href="#">联系我们</a>
-                </li>
-                <li>
-                    <a href="#">帮助</a>
+                    <a href="/about">关于我们</a>
                 </li>
                 <sec:authorize access="isAuthenticated()">
                     <li>

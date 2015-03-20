@@ -1,0 +1,31 @@
+.onepage-wrapper {
+    top: 50px !important;
+}
+.onepage-wrapper section {
+    display: table;
+    /*background-color: #f6e1d2;*/
+    background-color: #FBFBFB;
+    text-align: center;
+}
+.onepage-wrapper section > .box-position {
+    display: table-cell;
+    vertical-align: middle;
+}
+.onepage-wrapper section > .box-position > img {
+    width: 250px;
+}
+.onepage-wrapper section > .box-position > h2 {
+    color: #fe3600;
+    font-size: 3em;
+    font-family: "微软雅黑", "宋体", Arial, sans-serif, serif;
+    font-weight: bolder;
+    text-shadow: 1px 1px 1px;
+}
+.onepage-wrapper section > .box-position > .content {
+    width: 50%;
+    margin: 0 auto;
+    text-indent: 4em;
+}
+.onepage-wrapper section > .box-position > .content > h3 {
+    text-align: left;
+}

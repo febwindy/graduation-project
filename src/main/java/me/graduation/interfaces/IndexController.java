@@ -74,4 +74,9 @@ public class IndexController {
         return new ModelAndView("redirect:/", AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
     }
 
+    @RequestMapping(value = "/about")
+    public ModelAndView about() throws Exception {
+        return new ModelAndView("/about");
+    }
+
 }
