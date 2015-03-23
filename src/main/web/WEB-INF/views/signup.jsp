@@ -29,13 +29,14 @@
                     </div>
                     <div class="form-signup-margin">
                         <label for="password" class="sr-only">密码</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" required="true">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码"
+                                required="true" value="${user.password}">
                         <form:errors cssStyle="color: #FA4707;" path="user.password" role="alert"/>
                     </div>
                     <div class="form-signup-margin">
                         <label for="confirmPassword" class="sr-only">确认密码</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="请输入确认密码"
-                            required="true">
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+                               placeholder="请输入确认密码" required="true" value="${user.confirmPassword}">
                         <form:errors cssStyle="color: #FA4707;" path="user.confirmPassword" role="alert"/>
                     </div>
                     <div class="form-signup-margin">
@@ -68,7 +69,7 @@
                             <button class="btn btn-md btn-primary btn-block" type="submit">提交</button>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-md btn-danger btn-block" type="reset">重置</button>
+                            <button id="reset" class="btn btn-md btn-danger btn-block" type="button">重置</button>
                         </div>
                     </div>
                 </form>
@@ -77,4 +78,17 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $(function(){
+        $("input, select").bind("click", function () {
+            $(this).next("span").remove();
+        });
+        $("#reset").bind("click", function () {
+            var formInputs = $("input, select");
+            formInputs.each(function (a, b) {
+                $(b).val("").next("span").remove();
+            });
+        });
+    });
+</script>
 </html>

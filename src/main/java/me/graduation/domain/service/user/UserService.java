@@ -2,7 +2,6 @@ package me.graduation.domain.service.user;
 
 import me.graduation.domain.model.user.IUserRepository;
 import me.graduation.domain.model.user.User;
-import me.graduation.domain.service.ExistException;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -50,11 +49,7 @@ public class UserService implements IUserService{
         user.setSalt(salt);
         user.setRoles(null);
 
-        try {
-            userRepository.save(user);
-        } catch (Exception e) {
-            throw new ExistException("该用户已存在");
-        }
+        userRepository.save(user);
 
         return user;
     }
