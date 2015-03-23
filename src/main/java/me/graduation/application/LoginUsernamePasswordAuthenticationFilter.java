@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,8 @@ public class LoginUsernamePasswordAuthenticationFilter extends UsernamePasswordA
     private IUserService userService;
 
     private boolean postOnly = true;
+
+    private Md5PasswordEncoder md5PasswordEncoder;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -39,18 +43,22 @@ public class LoginUsernamePasswordAuthenticationFilter extends UsernamePasswordA
             }
 
             username = username.trim();
-//            User user = userService.findByUsername(username);
-//            if (null != user) {
-//                if (!user.getPassword().equals(password)) {
-//                    throw new BadCredentialsException("认证失败");
-//                }
-//            } else {
-//                throw new BadCredentialsException("认证失败");
-//            }
+            User user = userService.findByUsername(username);
+            if (null == user) {
+                throw new UsernameNotFoundException("用户名[" + username + "]不存在.");
+            } else {
+                if (!md5PasswordEncoder.isPasswordValid(user.getPassword(), password, user.getSalt())) {
+                    throw new BadCredentialsException("密码不正确.");
+                }
+            }
 
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
             this.setDetails(request, authRequest);
             return this.getAuthenticationManager().authenticate(authRequest);
         }
+    }
+
+    public void setMd5PasswordEncoder(Md5PasswordEncoder md5PasswordEncoder) {
+        this.md5PasswordEncoder = md5PasswordEncoder;
     }
 }

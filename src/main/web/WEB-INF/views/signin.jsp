@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,6 +39,9 @@
                                         <button class="btn btn-md btn-primary btn-block" type="submit">提交</button>
                                     </div>
                                 </div>
+                                <c:if test="${!empty error}">
+                                    <div class="alert-danger center">${error}</div>
+                                </c:if>
                             </section>
                         </div>
                         <div class="col-md-6 register">
@@ -65,4 +69,11 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $(function(){
+       $("input").click(function(){
+           $(".alert-danger").remove();
+       }) ;
+    });
+</script>
 </html>
