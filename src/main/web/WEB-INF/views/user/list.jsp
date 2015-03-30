@@ -30,7 +30,7 @@
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
                         </button>
-                        <button class="btn btn-info">创建</button>
+                        <a class="btn btn-info" href="/user/create">创建</a>
                     </form>
                     <table class="table table-striped thumbnail">
                         <thead>

@@ -3,11 +3,13 @@ package me.graduation.interfaces.user.web;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.user.IUserService;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
+import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -26,9 +28,14 @@ public class UserController {
         return new ModelAndView("/user/list", "pagination", pagination);
     }
 
-    @RequestMapping(value = "/create")
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView create() throws Exception {
-        return null;
+        return new ModelAndView("/user/create");
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView create(CreateUserCommand command) throws Exception {
+        return new ModelAndView("/user/create");
     }
 
     @RequestMapping(value = "/edit/{id}")
