@@ -12,8 +12,12 @@ public interface IUserService {
 
     User findByUsername(String username);
 
+    User findById(String id);
+
     User create(CreateUserCommand command);
 
     Pagination<User> pagination(ListCommand command);
+
+    void delete(String id);
 
 }

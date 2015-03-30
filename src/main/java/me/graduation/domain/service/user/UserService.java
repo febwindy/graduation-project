@@ -2,6 +2,7 @@ package me.graduation.domain.service.user;
 
 import me.graduation.domain.model.user.IUserRepository;
 import me.graduation.domain.model.user.User;
+import me.graduation.domain.service.NoFoundException;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -32,6 +33,15 @@ public class UserService implements IUserService{
     @Override
     public User findByUsername(String username) {
         return userRepository.loadByUsername(username);
+    }
+
+    @Override
+    public User findById(String id) {
+        User user = userRepository.getById(id);
+        if (null == user) {
+            throw new NoFoundException("该用户不存在.");
+        }
+        return user;
     }
 
     @Override
@@ -79,5 +89,16 @@ public class UserService implements IUserService{
 
         Order[] orders = {Order.desc("createdDate")};
         return userRepository.pagination(command.getPage(), command.getPageSize(), restrictions, orders);
+    }
+
+    @Override
+    public void delete(String id) {
+        User user;
+        try {
+            user = this.findById(id);
+        } catch (NoFoundException e) {
+            throw new NoFoundException(e);
+        }
+        userRepository.delete(user);
     }
 }

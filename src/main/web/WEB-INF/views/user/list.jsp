@@ -57,9 +57,9 @@
                                     <td>${user.email}</td>
                                     <td>${user.telephone}</td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="/user/edit/${user.id}">查看</a>
+                                        <a class="btn btn-primary btn-sm" href="/user/view/${user.id}">查看</a>
                                         <a class="btn btn-warning btn-sm" href="/user/edit/${user.id}">编辑</a>
-                                        <a class="btn btn-danger btn-sm" href="/user/edit/${user.id}">删除</a>
+                                        <a class="btn btn-danger btn-sm" href="/user/delete/${user.id}">删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>

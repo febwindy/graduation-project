@@ -1,12 +1,12 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>用户创建</title>
+    <title>用户编辑</title>
     <jsp:include page="../commons/inc_css.jsp"/>
     <jsp:include page="../commons/inc_js.jsp"/>
 </head>
@@ -20,10 +20,10 @@
             <section class="thumbnail">
                 <ol class="breadcrumb">
                     <li><a href="/user/list">用户管理</a></li>
-                    <li class="active">用户创建</li>
+                    <li class="active">用户编辑</li>
                 </ol>
                 <div class="thumbnail">
-                    <form class="form-horizontal" action="/user/create" method="post">
+                    <form class="form-horizontal" action="/user/edit/${user.id}" method="post">
                         <div class="form-group">
                             <label for="username" class="col-sm-3 control-label">用户名</label>
                             <div class="col-sm-6">
@@ -98,17 +98,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">
-    $(function(){
-        $("input, select").bind("click", function () {
-            $(this).next("span").remove();
-        });
-        $("#reset").bind("click", function () {
-            var formInputs = $("input, select");
-            formInputs.each(function (a, b) {
-                $(b).val("").next("span").remove();
-            });
-        });
-    });
-</script>
 </html>
