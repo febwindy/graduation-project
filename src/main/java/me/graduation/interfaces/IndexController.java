@@ -41,6 +41,11 @@ public class IndexController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signUp() throws Exception {
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (obj instanceof SaltUser) {
+            return new ModelAndView("redirect:/index");
+        }
+
         return new ModelAndView("/signup");
     }
 
