@@ -2,6 +2,7 @@ package me.graduation.domain.model.user;
 
 import me.graduation.domain.model.role.Role;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -15,6 +16,7 @@ public class User {
     private Boolean sex;
     private String email;
     private String telephone;
+    private Date createdDate;
     private String remark;
     private Set<Role> roles;
 
@@ -72,6 +74,14 @@ public class User {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getRemark() {

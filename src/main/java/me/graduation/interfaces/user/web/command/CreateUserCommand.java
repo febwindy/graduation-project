@@ -5,11 +5,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 /**
  * Created by _liwenhe on 2015/3/7.
  */
-public class CreateUserCommand {
+public class CreateUserCommand implements Serializable {
 
     @NotEmpty(message = "{CreateUserCommand.username.NotEmpty}")
     @Length(min = 4, message = "{CreateUserCommand.username.Length}")

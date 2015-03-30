@@ -2,13 +2,21 @@ package me.graduation.domain.service.user;
 
 import me.graduation.domain.model.user.IUserRepository;
 import me.graduation.domain.model.user.User;
+import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
+import me.graduation.interfaces.user.web.command.ListCommand;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -52,5 +60,24 @@ public class UserService implements IUserService{
         userRepository.save(user);
 
         return user;
+    }
+
+    @Override
+    public Pagination<User> pagination(ListCommand command) {
+        List<Criterion> criterionList = new ArrayList<Criterion>();
+
+        if (null != command.getUsername() && !StringUtils.isEmpty(command.getUsername())) {
+            criterionList.add(Restrictions.like("username", command.getUsername()));
+        }
+
+        Criterion[] restrictions = null;
+        int size = criterionList.size();
+        if (size> 0) {
+            restrictions = new Criterion[size];
+            criterionList.toArray(restrictions);
+        }
+
+        Order[] orders = {Order.desc("createdDate")};
+        return userRepository.pagination(command.getPage(), command.getPageSize(), restrictions, orders);
     }
 }

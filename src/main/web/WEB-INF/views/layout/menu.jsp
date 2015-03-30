@@ -2,7 +2,7 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
         <li class="active">
-            <a href="#">
+            <a href="/index">
                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 公告
                 <span class="sr-only">(current)</span>
             </a>
@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/user/list">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户管理
             </a>
         </li>

@@ -14,6 +14,7 @@
         <property name="sex" column="sex"/>
         <property name="email" column="email" length="32"/>
         <property name="telephone" column="telephone" length="11"/>
+        <property name="createdDate" column="created_date"/>
         <property name="remark" column="remark" length="255"/>
 
         <set name="roles" table="gr_user_role">

@@ -144,8 +144,18 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
     }
 
     @Override
+    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders) {
+        return this.pagination(page, pageSize, null, criteria, orders, null);
+    }
+
+    @Override
+    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders, Map<String, FetchMode> fetchModeMap) {
+        return this.pagination(page, pageSize, null, criteria, orders, fetchModeMap);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
-    public Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders,
+    public Pagination<T> pagination(int page, int pageSize, Map<String, String> alias, Criterion[] criteria, Order[] orders,
                                     Map<String, FetchMode> fetchModeMap) {
 
         Criteria criteriaCount = getSession().createCriteria(getPersistentClass()).
@@ -153,20 +163,29 @@ public abstract class AbstractHibernateGenericRepository<T, ID extends Serializa
 
         Criteria criteriaSearch = getSession().createCriteria(getPersistentClass());
 
-        if (criteria != null) {
+        if (null != alias) {
+            for (Map.Entry<String, String> entry : alias.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                criteriaCount.createAlias(key, value);
+                criteriaSearch.createAlias(key, value);
+            }
+        }
+
+        if (null != criteria) {
             for (Criterion criterion : criteria) {
                 criteriaCount.add(criterion);
                 criteriaSearch.add(criterion);
             }
         }
 
-        if (orders != null) {
+        if (null != orders) {
             for (Order order : orders) {
                 criteriaSearch.addOrder(order);
             }
         }
 
-        if (fetchModeMap != null) {
+        if (null != fetchModeMap) {
             for (Map.Entry<String, FetchMode> entry : fetchModeMap.entrySet()) {
                 String key = entry.getKey();
                 FetchMode value = entry.getValue();

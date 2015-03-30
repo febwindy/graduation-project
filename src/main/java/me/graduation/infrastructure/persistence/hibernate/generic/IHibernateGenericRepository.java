@@ -43,7 +43,11 @@ public interface IHibernateGenericRepository<T, ID extends Serializable> {
 
     void refresh(Object obj);
 
-    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders,
+    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders);
+
+    Pagination<T> pagination(int page, int pageSize, Criterion[] criteria, Order[] orders, Map<String, FetchMode> fetchModeMap);
+
+    Pagination<T> pagination(int page, int pageSize, Map<String, String> alias, Criterion[] criteria, Order[] orders,
                              Map<String, FetchMode> fetchModeMap);
 
     List<T> findAll();

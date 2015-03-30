@@ -3,3 +3,4 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugin/bootstrap-3.3.2-dist/css/bootstrap.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dashboard.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/nav.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/table.css"/>
