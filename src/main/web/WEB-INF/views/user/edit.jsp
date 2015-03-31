@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-3 control-label">用户名</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="username" name="username"
+                                <input type="text" class="form-control" id="username" name="username" readonly
                                        required="true" placeholder="请输入用户名" value="${user.username}">
                                 <form:errors cssStyle="color: #FA4707;" path="user.username" role="alert"/>
                             </div>
@@ -36,7 +36,7 @@
                             <label for="password" class="col-sm-3 control-label">密码</label>
                             <div class="col-sm-6">
                                 <input type="password" class="form-control" id="password" name="password"
-                                       required="true" placeholder="请输入密码" value="${user.password}">
+                                       placeholder="请输入密码" value="">
                                 <form:errors cssStyle="color: #FA4707;" path="user.password" role="alert"/>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <label for="confirmPassword" class="col-sm-3 control-label">确认密码</label>
                             <div class="col-sm-6">
                                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                                       required="true" placeholder="请再次输入密码" value="${user.confirmPassword}">
+                                       placeholder="请再次输入密码" value="">
                                 <form:errors cssStyle="color: #FA4707;" path="user.confirmPassword" role="alert"/>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                                     <button class="btn btn-md btn-primary btn-block" type="submit">提交</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button id="reset" class="btn btn-md btn-danger btn-block" type="button">重置</button>
+                                    <a href="/user/list" class="btn btn-md btn-danger btn-block" type="button">返回</a>
                                 </div>
                             </div>
                         </div>
@@ -98,4 +98,5 @@
     </div>
 </div>
 </body>
+<script src="/resources/js/user-module.js"></script>
 </html>

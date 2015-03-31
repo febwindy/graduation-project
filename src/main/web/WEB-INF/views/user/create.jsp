@@ -98,17 +98,5 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">
-    $(function(){
-        $("input, select").bind("click", function () {
-            $(this).next("span").remove();
-        });
-        $("#reset").bind("click", function () {
-            var formInputs = $("input, select");
-            formInputs.each(function (a, b) {
-                $(b).val("").next("span").remove();
-            });
-        });
-    });
-</script>
+<script src="/resources/js/user-module.js"></script>
 </html>

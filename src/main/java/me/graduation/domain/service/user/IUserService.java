@@ -3,6 +3,7 @@ package me.graduation.domain.service.user;
 import me.graduation.domain.model.user.User;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
+import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
 
 /**
@@ -19,5 +20,7 @@ public interface IUserService {
     Pagination<User> pagination(ListCommand command);
 
     void delete(String id);
+
+    void edit(EditUserCommand command);
 
 }

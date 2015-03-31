@@ -18,11 +18,8 @@ public class EditUserCommand implements Serializable {
     @Length(min = 4, message = "{CreateUserCommand.username.Length}")
     private String username;
 
-    @NotEmpty(message = "{CreateUserCommand.password.NotEmpty}")
-    @Length(min = 8, message = "{CreateUserCommand.password.Length}")
     private String password;
 
-    @NotEmpty(message = "{CreateUserCommand.confirmPassword.NotEmpty}")
     private String confirmPassword;
 
     private String salt;

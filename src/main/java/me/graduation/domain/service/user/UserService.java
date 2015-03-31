@@ -5,6 +5,7 @@ import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.NoFoundException;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
+import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,6 +68,7 @@ public class UserService implements IUserService{
         user.setTelephone(command.getTelephone());
         user.setSalt(salt);
         user.setRoles(null);
+        user.setCreatedDate(new Date());
 
         userRepository.save(user);
 
@@ -100,5 +103,34 @@ public class UserService implements IUserService{
             throw new NoFoundException(e);
         }
         userRepository.delete(user);
+    }
+
+    @Override
+    public void edit(EditUserCommand command) {
+
+        Boolean sex;
+        if ("0".equals(command.getSex())) {
+            sex = false;
+        } else {
+            sex = true;
+        }
+
+        User user = this.findById(command.getId());
+        user.setUsername(command.getUsername());
+        user.setSex(sex);
+        user.setEmail(command.getEmail());
+        user.setTelephone(command.getTelephone());
+        user.setRemark(command.getRemark());
+        if (!StringUtils.isEmpty(command.getPassword())) {
+            Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+            md5.setEncodeHashAsBase64(false);
+
+            String salt = UUID.randomUUID().toString().replaceAll("-", "");
+            String pwd = md5.encodePassword(command.getConfirmPassword(), salt);
+            user.setPassword(pwd);
+            user.setSalt(salt);
+        }
+
+        userRepository.update(user);
     }
 }
