@@ -24,4 +24,9 @@ public class PermissionService implements IPermissionService {
     public List<Permission> findByRoleId(String id) {
         return permissionRepository.getByRoleId(id);
     }
+
+    @Override
+    public List<Permission> findAll() {
+        return permissionRepository.findAll();
+    }
 }

@@ -1,11 +1,14 @@
 package me.graduation.interfaces.role.web;
 
+import me.graduation.domain.model.permission.Permission;
 import me.graduation.domain.model.role.Role;
 import me.graduation.domain.service.NoFoundException;
+import me.graduation.domain.service.permission.IPermissionService;
 import me.graduation.domain.service.role.IRoleService;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.role.web.command.CreateRoleCommand;
 import me.graduation.interfaces.role.web.command.EditRoleCommand;
+import me.graduation.interfaces.role.web.command.AuthorizationPermissionCommand;
 import me.graduation.interfaces.share.web.AlertMessage;
 import me.graduation.interfaces.share.web.BaseController;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -31,6 +35,9 @@ public class RoleController extends BaseController {
 
     @Autowired
     private IRoleService roleService;
+
+    @Autowired
+    private IPermissionService permissionService;
 
     @RequestMapping(value = "/list")
     public ModelAndView list(ListCommand command) throws Exception {
@@ -134,12 +141,11 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/view/{id}")
     public ModelAndView view(@PathVariable String id, RedirectAttributes redirectAttributes, Locale locale) throws Exception {
 
-        AlertMessage alertMessage;
         Role role;
         try {
             role = roleService.findById(id, false, true);
         } catch (NoFoundException e) {
-            alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("default.noFoundId.message",
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("default.noFoundId.message",
                     new Object[]{id}, locale));
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
             return new ModelAndView("redirect:/role/list");
@@ -147,6 +153,44 @@ public class RoleController extends BaseController {
 
         return new ModelAndView("/role/view", "role", role);
 
+    }
+
+    @RequestMapping(value = "/authorization/{id}", method = RequestMethod.GET)
+    public ModelAndView authorization(@PathVariable String id, RedirectAttributes redirectAttributes, Locale locale) throws Exception {
+
+        List<Permission> permissions = permissionService.findAll();
+        Role role;
+        try {
+            role = roleService.findById(id, false, true);
+        } catch (NoFoundException e) {
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("default.noFoundId.message",
+                    new Object[]{id}, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("redirect:/role/list");
+        }
+
+        return new ModelAndView("role/authorization", "permissions", permissions)
+                .addObject("role", role);
+
+    }
+
+    @RequestMapping(value = "/authorization/{id}", method = RequestMethod.POST)
+    public ModelAndView authorization(@ModelAttribute("role")AuthorizationPermissionCommand command,
+                                   RedirectAttributes redirectAttributes,
+                                   Locale locale) throws Exception {
+        try {
+            roleService.authorization(command);
+        } catch (NoFoundException e) {
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("AuthorizationPermissionCommand.failed.message",
+                    new Object[]{command.getRole()}, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        }
+
+        AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.SUCCESS, this.getMessage("AuthorizationPermissionCommand.success.message",
+                new Object[]{command.getRole()}, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+
+        return new ModelAndView("redirect:/role/list");
     }
 
 }

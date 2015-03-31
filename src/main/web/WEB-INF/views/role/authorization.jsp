@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>用户授权</title>
+    <title>角色权限</title>
     <jsp:include page="../commons/inc_css.jsp"/>
     <jsp:include page="../commons/inc_js.jsp"/>
 </head>
@@ -15,34 +15,35 @@
     <div class="row">
         <jsp:include page="../layout/menu.jsp"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">用户管理</h1>
+            <h1 class="page-header">角色管理</h1>
             <section class="thumbnail">
                 <ol class="breadcrumb">
-                    <li><a href="/user/list">用户管理</a></li>
-                    <li class="active">用户列表</li>
+                    <li><a href="/role/list">角色管理</a></li>
+                    <li class="active">角色权限</li>
                 </ol>
                 <div class="thumbnail">
-                    <form class="form-horizontal" action="/user/authorization/${user.id}" method="post">
+                    <form class="form-horizontal" action="/role/authorization/${role.id}" method="post">
                         <div class="form-group">
-                            <label for="username" class="col-sm-3 control-label">用户名</label>
+                            <label for="role" class="col-sm-3 control-label">角色名</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="username" name="username" readonly
-                                       required="true" placeholder="请输入用户名" value="${user.username}">
+                                <input type="text" class="form-control" id="role" name="role" readonly
+                                       required="true" placeholder="请输入角色名" value="${role.role}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="roles" class="col-sm-3 control-label">角色列表</label>
-                            <div id="roles" class="col-sm-6">
-                                <c:forEach var="role" items="${roles}">
+                            <label for="permissions" class="col-sm-3 control-label">权限列表</label>
+                            <div id="permissions" class="col-sm-6">
+                                <c:forEach var="permission" items="${permissions}">
                                     <c:set var="checked" value=""/>
-                                    <c:forEach var="userRole" items="${user.roles}">
-                                        <c:if test="${role.id.equals(userRole.id)}">
+                                    <c:forEach var="rolePermission" items="${role.permissions}">
+                                        <c:if test="${permission.id.equals(rolePermission.id)}">
                                             <c:set var="checked" value="checked"/>
                                         </c:if>
                                     </c:forEach>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" value="${role.id}" name="roles" ${checked}/> ${role.description}
+                                            <input type="checkbox" value="${permission.id}" name="permissions" ${checked}/>
+                                            ${permission.resource} - ${permission.description}
                                         </label>
                                     </div>
                                 </c:forEach>
@@ -54,7 +55,7 @@
                                     <button type="submit" class="btn btn-md btn-success btn-block">授权</button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a href="/user/list" class="btn btn-md btn-danger btn-block" type="button">返回</a>
+                                    <a href="/role/list" class="btn btn-md btn-danger btn-block" type="button">返回</a>
                                 </div>
                             </div>
                         </div>

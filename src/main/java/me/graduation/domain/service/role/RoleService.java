@@ -1,12 +1,16 @@
 package me.graduation.domain.service.role;
 
+import me.graduation.domain.model.permission.IPermissionRepository;
+import me.graduation.domain.model.permission.Permission;
 import me.graduation.domain.model.role.IRoleRepository;
 import me.graduation.domain.model.role.Role;
 import me.graduation.domain.service.NoFoundException;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.role.web.command.CreateRoleCommand;
 import me.graduation.interfaces.role.web.command.EditRoleCommand;
+import me.graduation.interfaces.role.web.command.AuthorizationPermissionCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by _liwenhe on 2015/3/4.
@@ -28,6 +29,9 @@ public class RoleService implements IRoleService {
 
     @Autowired
     private IRoleRepository<Role, String> roleRepository;
+
+    @Autowired
+    private IPermissionRepository<Permission, String> permissionRepository;
 
     @Override
     public Role findByUserId(String id) {
@@ -109,5 +113,29 @@ public class RoleService implements IRoleService {
     public void delete(String id) {
         Role role = this.findById(id);
         roleRepository.delete(role);
+    }
+
+    @Override
+    public void authorization(AuthorizationPermissionCommand command) {
+
+        Set<Permission> permissions = new HashSet<Permission>();
+
+        if (null != command.getPermissions() && !StringUtils.isEmpty(command.getPermissions())) {
+            String[] permissionIds = command.getPermissions().split(",");
+            for (String id : permissionIds) {
+                Permission permission = permissionRepository.getById(id);
+                if (null != permission) {
+                    permissions.add(permission);
+                } else {
+                    throw new NoFoundException("权限资源[" + permission.getResource() + "]没有发现" );
+                }
+            }
+        }
+
+        Role role = this.findById(command.getId());
+        role.setPermissions(permissions);
+
+        roleRepository.update(role);
+
     }
 }

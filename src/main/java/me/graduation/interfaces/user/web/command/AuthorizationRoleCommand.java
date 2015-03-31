@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Created by ivan_ on 2015/3/31.
  */
-public class AuthorizationCommand implements Serializable {
+public class AuthorizationRoleCommand implements Serializable {
 
     private String id;
 

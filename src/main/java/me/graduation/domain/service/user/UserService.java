@@ -6,7 +6,7 @@ import me.graduation.domain.model.user.IUserRepository;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.NoFoundException;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
-import me.graduation.interfaces.user.web.command.AuthorizationCommand;
+import me.graduation.interfaces.user.web.command.AuthorizationRoleCommand;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -151,11 +151,12 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void authorization(AuthorizationCommand command) {
+    public void authorization(AuthorizationRoleCommand command) {
+
+        Set<Role> roles = new HashSet<Role>();
 
         if (null != command.getRoles() && !StringUtils.isEmpty(command.getRoles())) {
             String[] roleIds = command.getRoles().split(",");
-            Set<Role> roles = new HashSet<Role>();
             for (String id : roleIds) {
                 Role role = roleRepository.getById(id);
                 if (null != role) {
@@ -164,12 +165,12 @@ public class UserService implements IUserService{
                     throw new NoFoundException("角色[" + role.getDescription() + "]没有发现" );
                 }
             }
-
-            User user = this.findById(command.getId());
-            user.setRoles(roles);
-
-            userRepository.update(user);
         }
+
+        User user = this.findById(command.getId());
+        user.setRoles(roles);
+
+        userRepository.update(user);
 
     }
 }

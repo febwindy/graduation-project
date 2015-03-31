@@ -8,7 +8,7 @@ import me.graduation.domain.service.user.IUserService;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.share.web.AlertMessage;
 import me.graduation.interfaces.share.web.BaseController;
-import me.graduation.interfaces.user.web.command.AuthorizationCommand;
+import me.graduation.interfaces.user.web.command.AuthorizationRoleCommand;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -185,19 +185,19 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/authorization/{id}", method = RequestMethod.POST)
-    public ModelAndView authorization(@ModelAttribute("user")AuthorizationCommand command,
+    public ModelAndView authorization(@ModelAttribute("user")AuthorizationRoleCommand command,
                                       RedirectAttributes redirectAttributes,
                                       Locale locale) throws Exception {
 
         try {
             userService.authorization(command);
         } catch (NoFoundException e) {
-            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("AuthorizationCommand.failed.message",
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("AuthorizationRoleCommand.failed.message",
                     new Object[]{command.getUsername()}, locale));
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
 
-        AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.SUCCESS, this.getMessage("AuthorizationCommand.success.message",
+        AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.SUCCESS, this.getMessage("AuthorizationRoleCommand.success.message",
                 new Object[]{command.getUsername()}, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
 

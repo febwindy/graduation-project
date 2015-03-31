@@ -4,6 +4,7 @@ import me.graduation.domain.model.role.Role;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.role.web.command.CreateRoleCommand;
 import me.graduation.interfaces.role.web.command.EditRoleCommand;
+import me.graduation.interfaces.role.web.command.AuthorizationPermissionCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
 
 import java.util.List;
@@ -30,5 +31,7 @@ public interface IRoleService {
     void edit(EditRoleCommand command);
 
     void delete(String id);
+
+    void authorization(AuthorizationPermissionCommand command);
 
 }
