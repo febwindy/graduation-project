@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-sm-6">
         <c:set var="modNumber" value="${(pagination.count % pagination.pageSize > 0 ? 1 : 0)}"/>
-        <fmt:formatNumber value="${pagination.count / pagination.pageSize + modNumber}" var="totalPage" maxFractionDigits="0" type="number"/>
+        <fmt:parseNumber value="${pagination.count / pagination.pageSize + modNumber}" var="totalPage" integerOnly="true"/>
         <div class="pagination-detail">总计 ${pagination.count} 条数据, 每页显示${pagination.pageSize}条,总计 ${totalPage}页</div>
     </div>
     <div class="col-sm-6">

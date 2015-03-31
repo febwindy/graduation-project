@@ -24,4 +24,18 @@ public class UserRepository extends AbstractHibernateGenericRepository<User, Str
 
         return (null == obj) ? null : (User) obj;
     }
+
+    @Override
+    public User getById(String id, Boolean isFetchMode) {
+        Criteria criteria = getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("id", id));
+
+        if (isFetchMode) {
+            criteria.setFetchMode("roles", FetchMode.JOIN);
+        }
+
+        Object obj = criteria.uniqueResult();
+
+        return (null == obj) ? null : (User) obj;
+    }
 }

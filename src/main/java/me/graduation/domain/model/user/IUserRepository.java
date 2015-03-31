@@ -11,4 +11,6 @@ public interface IUserRepository<T, TD extends Serializable> extends IHibernateG
 
     T loadByUsername(String username);
 
+    T getById(String id, Boolean isFetchMode);
+
 }

@@ -1,9 +1,13 @@
 package me.graduation.domain.service.user;
 
+import me.graduation.domain.model.role.IRoleRepository;
+import me.graduation.domain.model.role.Role;
 import me.graduation.domain.model.user.IUserRepository;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.NoFoundException;
+import me.graduation.domain.service.role.IRoleService;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
+import me.graduation.interfaces.user.web.command.AuthorizationCommand;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -18,10 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by _liwenhe on 2015/3/4.
@@ -33,6 +34,9 @@ public class UserService implements IUserService{
     @Autowired
     private IUserRepository<User, String> userRepository;
 
+    @Autowired
+    private IRoleRepository<Role, String> roleRepository;
+
     @Override
     public User findByUsername(String username) {
         return userRepository.loadByUsername(username);
@@ -41,6 +45,15 @@ public class UserService implements IUserService{
     @Override
     public User findById(String id) {
         User user = userRepository.getById(id);
+        if (null == user) {
+            throw new NoFoundException("该用户不存在.");
+        }
+        return user;
+    }
+
+    @Override
+    public User findById(String id, Boolean isFetchMode) {
+        User user = userRepository.getById(id, true);
         if (null == user) {
             throw new NoFoundException("该用户不存在.");
         }
@@ -78,6 +91,9 @@ public class UserService implements IUserService{
 
     @Override
     public Pagination<User> pagination(ListCommand command) {
+
+        command.setPageSize(10);
+
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
         if (null != command.getUsername() && !StringUtils.isEmpty(command.getUsername())) {
@@ -133,5 +149,28 @@ public class UserService implements IUserService{
         }
 
         userRepository.update(user);
+    }
+
+    @Override
+    public void authorization(AuthorizationCommand command) {
+
+        if (null != command.getRoles() && !StringUtils.isEmpty(command.getRoles())) {
+            String[] roleIds = command.getRoles().split(",");
+            Set<Role> roles = new HashSet<Role>();
+            for (String id : roleIds) {
+                Role role = roleRepository.getById(id);
+                if (null != role) {
+                    roles.add(role);
+                } else {
+                    throw new NoFoundException("角色[" + role.getDescription() + "]没有发现" );
+                }
+            }
+
+            User user = this.findById(command.getId());
+            user.setRoles(roles);
+
+            userRepository.update(user);
+        }
+
     }
 }

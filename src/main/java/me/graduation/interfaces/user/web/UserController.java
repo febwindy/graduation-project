@@ -1,11 +1,14 @@
 package me.graduation.interfaces.user.web;
 
+import me.graduation.domain.model.role.Role;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.NoFoundException;
+import me.graduation.domain.service.role.IRoleService;
 import me.graduation.domain.service.user.IUserService;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.share.web.AlertMessage;
 import me.graduation.interfaces.share.web.BaseController;
+import me.graduation.interfaces.user.web.command.AuthorizationCommand;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -33,6 +37,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IRoleService roleService;
 
     @RequestMapping(value = "/list")
     public ModelAndView list(@ModelAttribute("user")ListCommand command) throws Exception {
@@ -152,6 +159,47 @@ public class UserController extends BaseController {
                     new Object[]{id}, locale));
             redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         }
+
+        return new ModelAndView("redirect:/user/list");
+
+    }
+
+    @RequestMapping(value = "/authorization/{id}", method = RequestMethod.GET)
+    public ModelAndView authorization(@PathVariable String id, RedirectAttributes redirectAttributes, Locale locale) throws Exception {
+
+        List<Role> roles = roleService.findAll();
+
+        User user;
+        try {
+            user = userService.findById(id, true);
+        } catch (NoFoundException e) {
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.noFoundId.message",
+                    new Object[]{id}, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("redirect:/user/list");
+        }
+
+        return new ModelAndView("/user/authorization", "roles", roles)
+                .addObject("user", user);
+
+    }
+
+    @RequestMapping(value = "/authorization/{id}", method = RequestMethod.POST)
+    public ModelAndView authorization(@ModelAttribute("user")AuthorizationCommand command,
+                                      RedirectAttributes redirectAttributes,
+                                      Locale locale) throws Exception {
+
+        try {
+            userService.authorization(command);
+        } catch (NoFoundException e) {
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.DANGER, this.getMessage("AuthorizationCommand.failed.message",
+                    new Object[]{command.getUsername()}, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        }
+
+        AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.SUCCESS, this.getMessage("AuthorizationCommand.success.message",
+                new Object[]{command.getUsername()}, locale));
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
 
         return new ModelAndView("redirect:/user/list");
     }

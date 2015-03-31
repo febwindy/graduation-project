@@ -2,6 +2,7 @@ package me.graduation.domain.service.user;
 
 import me.graduation.domain.model.user.User;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
+import me.graduation.interfaces.user.web.command.AuthorizationCommand;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
 import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
@@ -15,6 +16,8 @@ public interface IUserService {
 
     User findById(String id);
 
+    User findById(String id, Boolean isFetchMode);
+
     User create(CreateUserCommand command);
 
     Pagination<User> pagination(ListCommand command);
@@ -22,5 +25,7 @@ public interface IUserService {
     void delete(String id);
 
     void edit(EditUserCommand command);
+
+    void authorization(AuthorizationCommand command);
 
 }

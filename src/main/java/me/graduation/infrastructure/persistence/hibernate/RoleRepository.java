@@ -5,9 +5,11 @@ import me.graduation.domain.model.role.Role;
 import me.graduation.infrastructure.persistence.hibernate.generic.AbstractHibernateGenericRepository;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by _liwenhe on 2015/3/4.
@@ -19,5 +21,23 @@ public class RoleRepository extends AbstractHibernateGenericRepository<Role, Str
         Criteria criteria = getSession().createCriteria(getPersistentClass());
         criteria.setFetchMode("permissions", FetchMode.JOIN);
         return criteria.list();
+    }
+
+    @Override
+    public Role getById(String id, Map<String, FetchMode> fetchModeMap) {
+        Criteria criteria = getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("id", id));
+
+        if (null != fetchModeMap) {
+            for (Map.Entry entry : fetchModeMap.entrySet()) {
+                String key = (String) entry.getKey();
+                FetchMode value = (FetchMode) entry.getValue();
+                criteria.setFetchMode(key, value);
+            }
+        }
+
+        Object obj = criteria.uniqueResult();
+
+        return (null != obj) ? (Role) obj : null;
     }
 }

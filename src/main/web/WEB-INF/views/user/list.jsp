@@ -18,7 +18,9 @@
         <jsp:include page="../layout/menu.jsp"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">用户管理</h1>
-            <%@ include file="../layout/alert.jsp" %>
+
+            <jsp:include page="../layout/alert.jsp"/>
+
             <section class="thumbnail">
                 <ol class="breadcrumb">
                     <li><a href="/user/list">用户管理</a></li>
@@ -61,6 +63,7 @@
                                     <td>${user.email}</td>
                                     <td>${user.telephone}</td>
                                     <td>
+                                        <a class="btn btn-info btn-sm" href="/user/authorization/${user.id}">授权</a>
                                         <a class="btn btn-primary btn-sm" href="/user/view/${user.id}">查看</a>
                                         <a class="btn btn-warning btn-sm" href="/user/edit/${user.id}">编辑</a>
                                         <a class="btn btn-danger btn-sm" href="/user/delete/${user.id}">删除</a>
@@ -69,9 +72,8 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                    <%--<%@ include file="../layout/pagination.jsp" %>--%>
+
                     <jsp:include page="../layout/pagination.jsp">
-                        <jsp:param name="pagination" value="${pagination}"/>
                         <jsp:param name="url" value="/user/list?username=${user.username}"/>
                     </jsp:include>
                 </div>
