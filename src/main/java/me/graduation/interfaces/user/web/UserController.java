@@ -82,7 +82,7 @@ public class UserController extends BaseController {
 
         User user;
         try {
-            user = userService.findById(id);
+            user = userService.findById(id, true);
         } catch (NoFoundException e) {
             AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.noFoundId.message",
                     new Object[]{id}, locale));

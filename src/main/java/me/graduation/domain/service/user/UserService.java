@@ -5,7 +5,6 @@ import me.graduation.domain.model.role.Role;
 import me.graduation.domain.model.user.IUserRepository;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.NoFoundException;
-import me.graduation.domain.service.role.IRoleService;
 import me.graduation.infrastructure.persistence.hibernate.generic.Pagination;
 import me.graduation.interfaces.user.web.command.AuthorizationCommand;
 import me.graduation.interfaces.user.web.command.CreateUserCommand;
@@ -61,7 +60,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public User create(CreateUserCommand command) {
+    public void create(CreateUserCommand command) {
         Md5PasswordEncoder md5 = new Md5PasswordEncoder();
         md5.setEncodeHashAsBase64(false);
 
@@ -86,10 +85,10 @@ public class UserService implements IUserService{
 
         userRepository.save(user);
 
-        return user;
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public Pagination<User> pagination(ListCommand command) {
 
         command.setPageSize(10);

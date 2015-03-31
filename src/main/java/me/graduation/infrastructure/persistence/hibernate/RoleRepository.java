@@ -40,4 +40,14 @@ public class RoleRepository extends AbstractHibernateGenericRepository<Role, Str
 
         return (null != obj) ? (Role) obj : null;
     }
+
+    @Override
+    public Role getByName(String name) {
+        Criteria criteria = getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("role", name));
+
+        Object obj = criteria.uniqueResult();
+
+        return (null != obj) ? (Role) obj : null;
+    }
 }

@@ -98,5 +98,5 @@
     </div>
 </div>
 </body>
-<script src="/resources/js/user-module.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/clear-tips.js"></script>
 </html>

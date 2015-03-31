@@ -14,4 +14,6 @@ public interface IRoleRepository<T, TD extends Serializable> extends IHibernateG
     List<T> getAll();
 
     T getById(String id, Map<String, FetchMode> fetchModeMap);
+
+    T getByName(String name);
 }

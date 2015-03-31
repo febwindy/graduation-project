@@ -18,7 +18,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/role/list">
                 <span class="glyphicon glyphicon-pawn" aria-hidden="true"></span> 角色管理
             </a>
         </li>

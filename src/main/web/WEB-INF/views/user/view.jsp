@@ -22,7 +22,7 @@
                     <li class="active">用户查看</li>
                 </ol>
                 <div class="thumbnail">
-                    <form class="form-horizontal" action="/user/create" method="post">
+                    <div class="form-horizontal">
                         <div class="form-group">
                             <label for="username" class="col-sm-3 control-label">用户名</label>
                             <div class="col-sm-6">
@@ -60,13 +60,25 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="roles" class="col-sm-3 control-label">角色列表</label>
+                            <div class="col-sm-6" id="roles">
+                                <c:forEach var="role" items="${user.roles}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" disabled value="${role.id}" name="roles" checked/> ${role.description}
+                                        </label>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <div class="col-sm-2">
                                     <a href="/user/list" class="btn btn-md btn-primary btn-block" type="button">返回</a>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </section>
         </div>

@@ -18,9 +18,9 @@ public interface IUserService {
 
     User findById(String id, Boolean isFetchMode);
 
-    User create(CreateUserCommand command);
-
     Pagination<User> pagination(ListCommand command);
+
+    void create(CreateUserCommand command);
 
     void delete(String id);
 
