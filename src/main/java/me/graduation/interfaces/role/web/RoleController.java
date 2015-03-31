@@ -97,10 +97,6 @@ public class RoleController extends BaseController {
                                BindingResult bindingResult,
                                Locale locale) throws Exception {
 
-        Role role = roleService.findByName(command.getRole());
-        if (null != role) {
-            bindingResult.rejectValue("role", "EditRoleCommand.role.found", new Object[]{command.getRole()}, null);
-        }
         if (bindingResult.hasErrors()) {
             return new ModelAndView("/role/edit", "role", command);
         }

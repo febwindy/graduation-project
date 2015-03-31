@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/permission/list">
                 <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 资源管理
             </a>
         </li>

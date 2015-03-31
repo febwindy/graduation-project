@@ -16,6 +16,16 @@ import java.util.List;
 public class PermissionRepository extends AbstractHibernateGenericRepository<Permission, String> implements IPermissionRepository<Permission, String> {
 
     @Override
+    public Permission getByName(String name) {
+        Criteria criteria = getSession().createCriteria(getPersistentClass());
+        criteria.add(Restrictions.eq("resource", name));
+
+        Object obj = criteria.uniqueResult();
+
+        return (null != obj) ? (Permission) obj : null;
+    }
+
+    @Override
     public List<Permission> getByRoleId(String id) {
         Criteria criteria = getSession().createCriteria(getPersistentClass());
         criteria.createAlias("roles", "r")
