@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="permissions" class="col-sm-3 control-label">权限列表</label>
+                            <label for="permissions" class="col-sm-3 control-label">资源列表</label>
                             <div id="permissions" class="col-sm-6">
                                 <c:forEach var="permission" items="${permissions}">
                                     <c:set var="checked" value=""/>

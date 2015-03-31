@@ -24,7 +24,7 @@
         </li>
         <li>
             <a href="#">
-                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 权限管理
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 资源管理
             </a>
         </li>
         <%--<li>--%>
