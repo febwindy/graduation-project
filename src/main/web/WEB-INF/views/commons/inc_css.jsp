@@ -4,3 +4,4 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dashboard.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/nav.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/table.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pagination.css"/>

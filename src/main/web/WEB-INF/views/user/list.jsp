@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,28 +18,7 @@
         <jsp:include page="../layout/menu.jsp"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">用户管理</h1>
-
-            <%-- 消息提示 --%>
-            <c:if test="${!empty alertMessage}">
-                <div class="alert alert-info alert-dismissible fade in list-alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <c:if test="${!empty alertMessage.type}">
-                        <strong>${alertMessage.type.name}!</strong>
-                    </c:if>
-                    ${alertMessage.message}.
-
-                    <script>
-                        $(function(){
-                            setTimeout(function(){
-                                $(".list-alert").alert('close');
-                            }, 5000)
-                        });
-                    </script>
-                </div>
-            </c:if>
-
+            <%@ include file="../layout/alert.jsp" %>
             <section class="thumbnail">
                 <ol class="breadcrumb">
                     <li><a href="/user/list">用户管理</a></li>
@@ -48,7 +28,8 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="username">用户名</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名"
+                                   value="${user.username}">
                         </div>
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
@@ -88,6 +69,11 @@
                             </c:forEach>
                         </tbody>
                     </table>
+                    <%--<%@ include file="../layout/pagination.jsp" %>--%>
+                    <jsp:include page="../layout/pagination.jsp">
+                        <jsp:param name="pagination" value="${pagination}"/>
+                        <jsp:param name="url" value="/user/list?username=${user.username}"/>
+                    </jsp:include>
                 </div>
             </section>
         </div>

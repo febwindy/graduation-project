@@ -7,8 +7,8 @@ import java.io.Serializable;
  */
 public class ListCommand implements Serializable {
     private String username;
-    private int page;
-    private int pageSize;
+    private int page = 1;
+    private int pageSize = 20;
 
     public String getUsername() {
         return username;

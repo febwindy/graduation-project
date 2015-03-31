@@ -35,9 +35,10 @@ public class UserController extends BaseController {
     private IUserService userService;
 
     @RequestMapping(value = "/list")
-    public ModelAndView list(ListCommand command) throws Exception {
+    public ModelAndView list(@ModelAttribute("user")ListCommand command) throws Exception {
         Pagination<User> pagination = userService.pagination(command);
-        return new ModelAndView("/user/list", "pagination", pagination);
+        return new ModelAndView("/user/list", "pagination", pagination)
+                .addObject("user", command);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)

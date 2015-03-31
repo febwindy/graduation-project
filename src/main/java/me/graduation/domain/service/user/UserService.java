@@ -9,6 +9,7 @@ import me.graduation.interfaces.user.web.command.EditUserCommand;
 import me.graduation.interfaces.user.web.command.ListCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class UserService implements IUserService{
         List<Criterion> criterionList = new ArrayList<Criterion>();
 
         if (null != command.getUsername() && !StringUtils.isEmpty(command.getUsername())) {
-            criterionList.add(Restrictions.like("username", command.getUsername()));
+            criterionList.add(Restrictions.like("username", command.getUsername(), MatchMode.ANYWHERE));
         }
 
         Criterion[] restrictions = null;
