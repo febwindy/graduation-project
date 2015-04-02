@@ -3,12 +3,12 @@ package me.graduation.application;
 import me.graduation.domain.model.permission.Permission;
 import me.graduation.domain.model.role.Role;
 import me.graduation.domain.service.permission.IPermissionService;
-import me.graduation.domain.service.role.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.util.PathMatcher;
 
 import java.util.*;
 
@@ -18,24 +18,24 @@ import java.util.*;
 public class CustomInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     @Autowired
-    private IRoleService roleService;
+    private IPermissionService permissionService;
 
     @Autowired
-    private IPermissionService permissionService;
+    private PathMatcher pathMatcher;
 
     private static Map<String, List<String>> resourceMap = null;
 
     public void loadResourceDefine() throws Exception {
         this.resourceMap = new HashMap<String, List<String>>();
 
-        List<Role> roles = roleService.findAll();
-        for (Role role : roles) {
-            List<String> permissionList = new ArrayList<String>();
-            List<Permission> permissions = permissionService.findByRoleId(role.getId());
-            for (Permission permission : permissions) {
-                permissionList.add(permission.getResource());
+        List<Permission> permissions = permissionService.findAll(true);
+        for (Permission permission : permissions) {
+            List<String> roleList = new ArrayList<String>();
+            Set<Role> roles = permission.getRoles();
+            for (Role role : roles) {
+                roleList.add(role.getRole());
             }
-            resourceMap.put(role.getRole(), permissionList);
+            resourceMap.put(permission.getResource(), roleList);
         }
     }
 
@@ -45,11 +45,12 @@ public class CustomInvocationSecurityMetadataSource implements FilterInvocationS
         Iterator<String> ite = resourceMap.keySet().iterator();
         Collection<ConfigAttribute> returnCollection = new ArrayList<ConfigAttribute>();
         while (ite.hasNext()) {
-            String role = ite.next();
-            List list = resourceMap.get(role);
-            if (list.contains(url)) {
-                ConfigAttribute ca = new SecurityConfig(role);
-                returnCollection.add(ca);
+            String resourceUrl = ite.next();
+            if (pathMatcher.match(resourceUrl, url)) {
+                for (String role : resourceMap.get(resourceUrl)) {
+                    ConfigAttribute ca = new SecurityConfig(role);
+                    returnCollection.add(ca);
+                }
             }
         }
         return returnCollection;
@@ -63,5 +64,10 @@ public class CustomInvocationSecurityMetadataSource implements FilterInvocationS
     @Override
     public boolean supports(Class<?> aClass) {
         return true;
+    }
+
+    public void flush() throws Exception {
+        resourceMap = null;
+        this.loadResourceDefine();
     }
 }

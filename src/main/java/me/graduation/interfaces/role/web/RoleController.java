@@ -1,5 +1,6 @@
 package me.graduation.interfaces.role.web;
 
+import me.graduation.application.CustomInvocationSecurityMetadataSource;
 import me.graduation.domain.model.permission.Permission;
 import me.graduation.domain.model.role.Role;
 import me.graduation.domain.service.NoFoundException;
@@ -38,6 +39,9 @@ public class RoleController extends BaseController {
 
     @Autowired
     private IPermissionService permissionService;
+
+    @Autowired
+    private CustomInvocationSecurityMetadataSource securityMetadataSource;
 
     @RequestMapping(value = "/list")
     public ModelAndView list(ListCommand command) throws Exception {
@@ -185,6 +189,8 @@ public class RoleController extends BaseController {
         AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.SUCCESS, this.getMessage("AuthorizationPermissionCommand.success.message",
                 new Object[]{command.getRole()}, locale));
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+
+        securityMetadataSource.flush();
 
         return new ModelAndView("redirect:/role/list");
     }

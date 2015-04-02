@@ -13,4 +13,6 @@ public interface IPermissionRepository<T, TD extends Serializable> extends IHibe
     T getByName(TD name);
 
     List<T> getByRoleId(TD id);
+
+    List<T> getAll(boolean isFetchMode);
 }

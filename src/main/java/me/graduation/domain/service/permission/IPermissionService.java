@@ -21,6 +21,8 @@ public interface IPermissionService {
 
     List<Permission> findAll();
 
+    List<Permission> findAll(boolean isFetchMode);
+
     Pagination<Permission> pagination(ListCommand command);
 
     void create(CreatePermissionCommand command);

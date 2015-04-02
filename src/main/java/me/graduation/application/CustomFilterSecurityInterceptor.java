@@ -41,7 +41,7 @@ public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         } finally {
 //            后置拦截
-//            super.afterInvocation(token, null);
+            super.afterInvocation(token, null);
         }
     }
 

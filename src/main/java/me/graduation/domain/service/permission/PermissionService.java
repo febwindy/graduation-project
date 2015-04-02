@@ -52,6 +52,11 @@ public class PermissionService implements IPermissionService {
     }
 
     @Override
+    public List<Permission> findAll(boolean isFetchMode) {
+        return permissionRepository.getAll(isFetchMode);
+    }
+
+    @Override
     public Pagination<Permission> pagination(ListCommand command) {
         command.setPageSize(10);
 

@@ -4,6 +4,7 @@ import me.graduation.domain.model.permission.IPermissionRepository;
 import me.graduation.domain.model.permission.Permission;
 import me.graduation.infrastructure.persistence.hibernate.generic.AbstractHibernateGenericRepository;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +31,16 @@ public class PermissionRepository extends AbstractHibernateGenericRepository<Per
         Criteria criteria = getSession().createCriteria(getPersistentClass());
         criteria.createAlias("roles", "r")
                 .add(Restrictions.eq("r.id", id));
+
+        return criteria.list();
+    }
+
+    @Override
+    public List<Permission> getAll(boolean isFetchMode) {
+        Criteria criteria = getSession().createCriteria(getPersistentClass());
+        if (isFetchMode) {
+            criteria.setFetchMode("roles", FetchMode.JOIN);
+        }
 
         return criteria.list();
     }
