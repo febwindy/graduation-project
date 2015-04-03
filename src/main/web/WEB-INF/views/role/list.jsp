@@ -42,8 +42,8 @@
                                 <td>${role.role}</td>
                                 <td>${role.description}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" href="/role/authorization/${role.id}">资源授权</a>
                                     <a class="btn btn-primary btn-sm" href="/role/view/${role.id}">查看</a>
+                                    <a class="btn btn-info btn-sm" href="/role/authorization/${role.id}">资源授权</a>
                                     <a class="btn btn-warning btn-sm" href="/role/edit/${role.id}">编辑</a>
                                     <a class="btn btn-danger btn-sm" href="/role/delete/${role.id}">删除</a>
                                 </td>

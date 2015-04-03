@@ -36,7 +36,9 @@
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
                         </button>
-                        <a class="btn btn-info" href="/user/create">创建</a>
+                        <security:authorize access="hasAnyRole('administrator')">
+                            <a class="btn btn-info" href="/user/create">创建</a>
+                        </security:authorize>
                     </form>
                     <table class="table table-striped thumbnail">
                         <thead>
@@ -63,10 +65,14 @@
                                     <td>${user.email}</td>
                                     <td>${user.telephone}</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="/user/authorization/${user.id}">角色授权</a>
-                                        <a class="btn btn-primary btn-sm" href="/user/view/${user.id}">查看</a>
-                                        <a class="btn btn-warning btn-sm" href="/user/edit/${user.id}">编辑</a>
-                                        <a class="btn btn-danger btn-sm" href="/user/delete/${user.id}">删除</a>
+                                        <security:authorize access="hasAnyRole('user,administrator')">
+                                            <a class="btn btn-primary btn-sm" href="/user/view/${user.id}">查看</a>
+                                            <security:authorize access="hasRole('administrator')">
+                                                <a class="btn btn-info btn-sm" href="/user/authorization/${user.id}">角色授权</a>
+                                                <a class="btn btn-warning btn-sm" href="/user/edit/${user.id}">编辑</a>
+                                                <a class="btn btn-danger btn-sm" href="/user/delete/${user.id}">删除</a>
+                                            </security:authorize>
+                                        </security:authorize>
                                     </td>
                                 </tr>
                             </c:forEach>
