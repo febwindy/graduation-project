@@ -73,6 +73,10 @@ public class UserService implements IUserService{
             sex = true;
         }
 
+        Set<Role> roles = new HashSet<Role>();
+        Role role = roleRepository.getByName("user");
+        roles.add(role);
+
         User user = new User();
         user.setUsername(command.getUsername());
         user.setPassword(pwd);
@@ -80,7 +84,7 @@ public class UserService implements IUserService{
         user.setSex(sex);
         user.setTelephone(command.getTelephone());
         user.setSalt(salt);
-        user.setRoles(null);
+        user.setRoles(roles);
         user.setCreatedDate(new Date());
 
         userRepository.save(user);
