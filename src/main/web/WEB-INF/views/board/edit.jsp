@@ -67,7 +67,8 @@
             ' forecolor backcolor | time date | link | fontfamily fontsize paragraph'],
             initialFrameWidth:'100%',
             initialFrameHeight:255,
-            minFrameHeight :500
+            minFrameHeight :500,
+            focus:true
         });
     });
 </script>

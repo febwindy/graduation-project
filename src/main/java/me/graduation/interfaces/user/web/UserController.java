@@ -1,5 +1,6 @@
 package me.graduation.interfaces.user.web;
 
+import me.graduation.application.SaltUser;
 import me.graduation.domain.model.role.Role;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.NoFoundException;
@@ -15,6 +16,7 @@ import me.graduation.interfaces.user.web.command.ListCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -202,6 +204,86 @@ public class UserController extends BaseController {
         redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
 
         return new ModelAndView("redirect:/user/list");
+    }
+
+    @RequestMapping(value = "/person_info", method = RequestMethod.GET)
+    public ModelAndView personInfo(RedirectAttributes redirectAttributes, Locale locale) throws Exception {
+
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (null == obj) {
+            return new ModelAndView("redirect:/logout");
+        }
+
+        User user = null;
+
+        if (obj instanceof SaltUser) {
+            try {
+                user = userService.findById(((SaltUser) obj).getId(), true);
+            } catch (NoFoundException e) {
+                AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.noFoundId.message",
+                        new Object[]{((SaltUser) obj).getId()}, locale));
+                redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+                return new ModelAndView("redirect:/logout");
+            }
+        }
+
+        return new ModelAndView("/user/personInfo", "user", user);
+    }
+
+    @RequestMapping(value = "/person_info/edit/{id}", method = RequestMethod.GET)
+    public ModelAndView personInfoEdit(@PathVariable String id,
+                                       EditUserCommand command,
+                                       RedirectAttributes redirectAttributes,
+                                       Locale locale) throws Exception {
+
+        try {
+            User user = userService.findById(id, true);
+
+            BeanUtils.copyProperties(user, command);
+            String sex = user.getSex() ? "1" : "0";
+            command.setSex(sex);
+        } catch (NoFoundException e) {
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.noFoundId.message",
+                    new Object[]{command.getUsername()}, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+            return new ModelAndView("redirect:/logout");
+        }
+
+        return new ModelAndView("/user/personInfoEdit", "user", command);
+    }
+
+    @RequestMapping(value = "/person_info/edit/{id}", method = RequestMethod.POST)
+    public ModelAndView personInfoEdit(@Valid @ModelAttribute("user")EditUserCommand command,
+                             RedirectAttributes redirectAttributes,
+                             BindingResult bindingResult,
+                             Locale locale) throws Exception {
+
+        if (!command.getPassword().equals(command.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "CreateUserCommand.confirmPasswordAndPassword.NotEquals");
+        }
+        if (StringUtils.isEmpty(command.getPassword()) && !StringUtils.isEmpty(command.getConfirmPassword())) {
+            bindingResult.rejectValue("password", "CreateUserCommand.password.NotEmpty");
+        }
+        if (!StringUtils.isEmpty(command.getPassword()) && StringUtils.isEmpty(command.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "CreateUserCommand.confirmPassword.NotEmpty");
+        }
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("/user/personInfoEdit", "user", command);
+        }
+
+        AlertMessage alertMessage;
+        try {
+            userService.edit(command);
+            alertMessage = new AlertMessage(AlertMessage.MessageType.SUCCESS, this.getMessage("default.edit.success.message",
+                    new Object[]{command.getUsername()}, locale));
+        } catch (NoFoundException e) {
+            alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.noFound.message",
+                    new Object[]{command.getUsername()}, locale));
+        }
+
+        redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
+        return new ModelAndView("redirect:/user/person_info");
     }
 
 }

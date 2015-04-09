@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -73,10 +74,12 @@ public class MessageBoardService implements IMessageBoardService {
             criterionList.toArray(restrictions);
         }
 
+        Order[] orders = new Order[]{Order.desc("updatedDate")};
+
         Map<String, FetchMode> fetchModeMap = new HashMap<String, FetchMode>();
         fetchModeMap.put("user", FetchMode.JOIN);
 
-        return messageBoardRepository.pagination(command.getPage(), command.getPageSize(), restrictions, null, fetchModeMap);
+        return messageBoardRepository.pagination(command.getPage(), command.getPageSize(), restrictions, orders, fetchModeMap);
     }
 
     @Override
