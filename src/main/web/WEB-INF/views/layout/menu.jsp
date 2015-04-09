@@ -13,10 +13,14 @@
                 <span class="glyphicon glyphicon-th" aria-hidden="true"></span> 流动党员管理
             </a>
         </li>
-
         <li>
             <a href="/user/list">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户管理
+            </a>
+        </li>
+        <li>
+            <a href="/board/list">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 在线留言
             </a>
         </li>
         <security:authorize access="hasAnyRole('administrator')">

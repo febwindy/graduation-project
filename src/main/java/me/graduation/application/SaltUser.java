@@ -10,17 +10,29 @@ import java.util.Collection;
  */
 public class SaltUser extends User {
 
+    private String id;
+
     private String salt;
 
-    public SaltUser(String username, String password, Collection<? extends GrantedAuthority> authorities, String salt) {
+    public SaltUser(String id, String username, String password, Collection<? extends GrantedAuthority> authorities, String salt) {
         super(username, password, authorities);
+        this.id = id;
         this.salt = salt;
     }
 
-    public SaltUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
+    public SaltUser(String id, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
                     boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, String salt) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        this.id = id;
         this.salt = salt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getSalt() {
