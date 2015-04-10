@@ -24,6 +24,11 @@
                     <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 资源管理
                 </a>
             </li>
+            <li>
+                <a href="/verified/list">
+                    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 审核管理
+                </a>
+            </li>
         </security:authorize>
         <security:authorize access="hasAnyRole('user')">
             <li>

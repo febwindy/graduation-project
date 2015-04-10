@@ -79,10 +79,13 @@ public class UserService implements IUserService{
 
         User user = new User();
         user.setUsername(command.getUsername());
+        user.setRealName(command.getRealName());
         user.setPassword(pwd);
         user.setEmail(command.getEmail());
         user.setSex(sex);
         user.setTelephone(command.getTelephone());
+        user.setIdCard(command.getIdCard());
+        user.setOrganization(command.getOrganization());
         user.setSalt(salt);
         user.setRoles(roles);
         user.setCreatedDate(new Date());
@@ -137,9 +140,12 @@ public class UserService implements IUserService{
 
         User user = this.findById(command.getId());
         user.setUsername(command.getUsername());
+        user.setRealName(command.getRealName());
         user.setSex(sex);
         user.setEmail(command.getEmail());
         user.setTelephone(command.getTelephone());
+        user.setIdCard(command.getIdCard());
+        user.setOrganization(command.getOrganization());
         user.setRemark(command.getRemark());
         if (!StringUtils.isEmpty(command.getPassword())) {
             Md5PasswordEncoder md5 = new Md5PasswordEncoder();
