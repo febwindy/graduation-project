@@ -25,15 +25,20 @@
                 </a>
             </li>
             <li>
-                <a href="/verified/list">
-                    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 审核管理
+                <a href="/user/verified/list">
+                    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 用户审核管理
+                </a>
+            </li>
+            <li>
+                <a href="/organization/verified/list">
+                    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 组织审核管理
                 </a>
             </li>
         </security:authorize>
         <security:authorize access="hasAnyRole('user')">
             <li>
-                <a href="#">
-                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> 申请转组织
+                <a href="/organization/verified/process_list">
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> 申请转组织管理
                 </a>
             </li>
             <li>

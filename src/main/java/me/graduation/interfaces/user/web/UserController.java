@@ -156,6 +156,10 @@ public class UserController extends BaseController {
 
         try {
             userService.delete(id);
+
+            AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.delete.success.message",
+                    new Object[]{id}, locale));
+            redirectAttributes.addFlashAttribute(AlertMessage.MODEL_ATTRIBUTE_KEY, alertMessage);
         } catch (NoFoundException e) {
             AlertMessage alertMessage = new AlertMessage(AlertMessage.MessageType.WARNING, this.getMessage("default.noFoundId.message",
                     new Object[]{id}, locale));

@@ -31,6 +31,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="realName" class="col-sm-3 control-label">真实姓名</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="realName" name="realName"
+                                       required="true" placeholder="请输入真实姓名" value="${user.realName}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="email" class="col-sm-3 control-label">邮件</label>
                             <div class="col-sm-6">
                                 <input type="email" class="form-control" id="email" name="email" required="true"
@@ -42,6 +49,20 @@
                             <div class="col-sm-6">
                                 <input type="tel" class="form-control" id="telephone" name="telephone" required="true"
                                        placeholder="请输入手机号码" readonly value="${user.telephone}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="idCard" class="col-sm-3 control-label">身份证号</label>
+                            <div class="col-sm-6">
+                                <input type="tel" class="form-control" id="idCard" name="idCard" required="true"
+                                       placeholder="请输入身份证号" value="${user.idCard}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="organization" class="col-sm-3 control-label">组织</label>
+                            <div class="col-sm-6">
+                                <input type="tel" class="form-control" id="organization" name="organization" required="true"
+                                       placeholder="请输入组织" value="${user.organization}" readonly>
                             </div>
                         </div>
                         <div class="form-group">

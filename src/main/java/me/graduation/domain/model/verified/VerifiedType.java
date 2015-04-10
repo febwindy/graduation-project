@@ -7,7 +7,8 @@ public enum VerifiedType {
 
     ALL("全部", 0, Boolean.TRUE),
     USER_VERIFIED("用户审核", 1, Boolean.FALSE),
-    MESSAGE_VERIFIED("信息审核", 2, Boolean.FALSE);
+    MESSAGE_VERIFIED("信息审核", 2, Boolean.FALSE),
+    ORGANIZATION_VERIFIED("组织审核", 3, Boolean.FALSE);
 
     VerifiedType(String name, int value, boolean onlyQuery) {
         this.name = name;

@@ -3,7 +3,8 @@ package me.graduation.interfaces;
 import me.graduation.application.SaltUser;
 import me.graduation.domain.model.user.User;
 import me.graduation.domain.service.user.IUserService;
-import me.graduation.interfaces.user.web.command.CreateUserCommand;
+import me.graduation.domain.service.verified.user.IUserVerifiedService;
+import me.graduation.interfaces.verified.web.user.command.CreateUserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ import javax.validation.Valid;
  */
 @Controller
 public class IndexController {
+
+    @Autowired
+    private IUserVerifiedService userVerifiedService;
 
     @Autowired
     private IUserService userService;
@@ -65,7 +69,7 @@ public class IndexController {
             return new ModelAndView("/signup", "user", command);
         }
 
-        userService.create(command);
+        userVerifiedService.create(command);
         return new ModelAndView("redirect:/");
     }
 

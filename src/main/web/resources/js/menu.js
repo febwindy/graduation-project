@@ -8,7 +8,7 @@ $(function(){
     $.each(as, function(a, b){
         var href = $(b).attr("href");
         var arr = href.split("/");
-        if (localHref.indexOf(arr[1]) > 0) {
+        if (localHref.indexOf(arr[1] + "/" + arr[2]) > 0) {
             $(as).parents("li").removeClass("active");
             $(b).parent("li").addClass("active");
         }

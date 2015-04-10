@@ -1,4 +1,4 @@
-package me.graduation.interfaces.user.web.command;
+package me.graduation.interfaces.verified.web.user.command;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -8,57 +8,47 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
- * Created by ivan_ on 2015/3/30.
+ * Created by _liwenhe on 2015/3/7.
  */
-public class EditUserCommand implements Serializable {
+public class CreateUserCommand implements Serializable {
 
-    private String id;
-
-    @NotEmpty(message = "{EditUserCommand.username.NotEmpty}")
-    @Length(min = 4, message = "{EditUserCommand.username.Length}")
+    @NotEmpty(message = "{CreateUserCommand.username.NotEmpty}")
+    @Length(min = 4, message = "{CreateUserCommand.username.Length}")
     private String username;
 
-    @NotNull(message = "{EditUserCommand.realName.NotEmpty}")
-    @NotEmpty(message = "{EditUserCommand.realName.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.realName.NotEmpty}")
     private String realName;
 
+    @NotEmpty(message = "{CreateUserCommand.password.NotEmpty}")
+    @Length(min = 8, message = "{CreateUserCommand.password.Length}")
     private String password;
 
+    @NotEmpty(message = "{CreateUserCommand.confirmPassword.NotEmpty}")
     private String confirmPassword;
 
     private String salt;
 
-    @NotNull(message = "{EditUserCommand.sex.NotEmpty}")
-    @NotEmpty(message = "{EditUserCommand.sex.NotEmpty}")
-    @Pattern(regexp = "[0|1]", message = "{EditUserCommand.sex.Pattern}")
+    @NotNull(message = "{CreateUserCommand.sex.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.sex.NotEmpty}")
+    @Pattern(regexp = "[0|1]", message = "{CreateUserCommand.sex.Pattern}")
     private String sex;
 
-    @NotNull(message = "{EditUserCommand.email.NotEmpty}")
-    @NotEmpty(message = "{EditUserCommand.email.NotEmpty}")
+    @NotNull(message = "{CreateUserCommand.email.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.email.NotEmpty}")
     @Pattern(regexp = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", message = "{CreateUserCommand.email.Pattern}")
     private String email;
 
-    @NotNull(message = "{EditUserCommand.telephone.NotNull}")
-    @Pattern(regexp = "1[3|5|7|8|][0-9]{9}", message = "{EditUserCommand.telephone.Pattern}")
+    @NotNull(message = "{CreateUserCommand.telephone.NotNull}")
+    @Pattern(regexp = "1[3|5|7|8|][0-9]{9}", message = "{CreateUserCommand.telephone.Pattern}")
     private String telephone;
 
-    @NotNull(message = "{EditUserCommand.idCard.NotEmpty}")
-    @NotEmpty(message = "{EditUserCommand.idCard.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.idCard.NotEmpty}")
     private String idCard;
 
-    @NotNull(message = "{EditUserCommand.organization.NotEmpty}")
-    @NotEmpty(message = "{EditUserCommand.organization.NotEmpty}")
+    @NotEmpty(message = "{CreateUserCommand.organization.NotEmpty}")
     private String organization;
 
     private String remark;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

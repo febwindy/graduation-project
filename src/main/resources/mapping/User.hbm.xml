@@ -9,11 +9,14 @@
             <generator class="uuid"/>
         </id>
         <property name="username" column="username" length="32" unique="true"/>
+        <property name="realName" column="real_name" length="32"/>
         <property name="password" column="password" length="32"/>
         <property name="salt" column="salt" length="32"/>
         <property name="sex" column="sex"/>
         <property name="email" column="email" length="32"/>
         <property name="telephone" column="telephone" length="11"/>
+        <property name="idCard" column="id_card" length="18"/>
+        <property name="organization" column="organization" length="64"/>
         <property name="createdDate" column="created_date"/>
         <property name="remark" column="remark" length="255"/>
 

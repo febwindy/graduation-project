@@ -40,6 +40,12 @@
                         <form:errors cssStyle="color: #FA4707;" path="user.confirmPassword" role="alert"/>
                     </div>
                     <div class="form-signup-margin">
+                        <label for="realName" class="sr-only">真实姓名</label>
+                        <input type="text" class="form-control" id="realName" name="realName" required="true"
+                               placeholder="请输入真实姓名" value="${user.realName}">
+                        <form:errors cssStyle="color: #FA4707;" path="user.realName" role="alert"/>
+                    </div>
+                    <div class="form-signup-margin">
                         <label for="email" class="sr-only">邮件</label>
                         <input type="email" id="email" name="email" class="form-control" placeholder="请输入邮件"
                                required="true" value="${user.email}">
@@ -50,6 +56,18 @@
                         <input type="tel" id="telephone" name="telephone" class="form-control" placeholder="请输入手机号码"
                                 required="true" value="${user.telephone}">
                         <form:errors cssStyle="color: #FA4707;" path="user.telephone" role="alert"/>
+                    </div>
+                    <div class="form-signup-margin">
+                        <label for="idCard" class="sr-only">身份证号</label>
+                        <input type="tel" class="form-control" id="idCard" name="idCard" required="true"
+                               placeholder="请输入身份证号" value="${user.idCard}">
+                        <form:errors cssStyle="color: #FA4707;" path="user.idCard" role="alert"/>
+                    </div>
+                    <div class="form-signup-margin">
+                        <label for="organization" class="sr-only">组织</label>
+                        <input type="tel" class="form-control" id="organization" name="organization" required="true"
+                               placeholder="请输入组织" value="${user.organization}">
+                        <form:errors cssStyle="color: #FA4707;" path="user.organization" role="alert"/>
                     </div>
                     <div class="form-signup-margin">
                         <label for="sex" class="sr-only">性别</label>

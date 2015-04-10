@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="realName" class="col-sm-3 control-label">用户名</label>
+                            <label for="realName" class="col-sm-3 control-label">真实姓名</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="realName" name="realName"
                                        required="true" placeholder="请输入真实姓名" value="${user.realName}">
