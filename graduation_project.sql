@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-04-10 18:00:40
+Date: 2015-04-10 18:05:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -75,7 +75,7 @@ INSERT INTO `gr_permission` VALUES ('402880a54c7cff2c014c7d026c640004', '/permis
 INSERT INTO `gr_permission` VALUES ('402880a54c9c6c3a014c9c6db0f00000', '/user/person_info', '用户个人信息查看');
 INSERT INTO `gr_permission` VALUES ('402880a54c9c75ad014c9c7706aa0000', '/user/person_info/edit/*', '个人信息修改');
 INSERT INTO `gr_permission` VALUES ('402880a54ca23b89014ca23d90880002', '/user/verified/*', '用户审核管理');
-INSERT INTO `gr_permission` VALUES ('402880a54ca23b89014ca23d90880002', '/organization/verified/*', '组织审核管理');
+INSERT INTO `gr_permission` VALUES ('402880a54ca2c814014ca2c8f9300000', '/organization/verified/*', '组织审核管理');
 
 -- ----------------------------
 -- Table structure for gr_role
@@ -120,6 +120,9 @@ INSERT INTO `gr_role_permission` VALUES ('402880a54c78afeb014c78b6c4f20001', '40
 INSERT INTO `gr_role_permission` VALUES ('402880a54c9c6c3a014c9c6db0f00000', '402880a54c703480014c7034f4140000');
 INSERT INTO `gr_role_permission` VALUES ('402880a54c9c75ad014c9c7706aa0000', '402880a54c703480014c7034f4140000');
 INSERT INTO `gr_role_permission` VALUES ('402880a54ca23b89014ca23d90880002', '1');
+INSERT INTO `gr_role_permission` VALUES ('402880a54ca23b89014ca23d90880002', '402880a54c703480014c7034f4140000');
+INSERT INTO `gr_role_permission` VALUES ('402880a54ca2c814014ca2c8f9300000', '1');
+INSERT INTO `gr_role_permission` VALUES ('402880a54ca2c814014ca2c8f9300000', '402880a54c703480014c7034f4140000');
 
 -- ----------------------------
 -- Table structure for gr_user
